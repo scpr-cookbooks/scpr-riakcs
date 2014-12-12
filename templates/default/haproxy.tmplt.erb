@@ -1,0 +1,47 @@
+global
+  log 127.0.0.1 local0 notice
+  maxconn 4096
+  user haproxy
+  group haproxy
+
+defaults
+  log global
+  mode http
+  option dontlognull
+  option redispatch
+  option forwardfor
+  option httplog
+  retries 3
+
+frontend http-in
+  bind *:80
+  default_backend riakcs-http
+
+frontend https-in
+  bind *:443 ssl crt <%= @pem_path %>
+  default_backend riakcs-http
+
+frontend pb-in
+  bind *:<%= node['riak_cs']['config']['riak_cs']['riak_pb_port'] %>
+  default_backend riakcs-pb
+
+frontend stanchion-in
+  bind *:8085
+  default_backend stanchion
+
+backend riakcs-http
+  balance leastconn{{range service "<%= node.scpr_riakcs.consul_service %>"}}
+  server {{.Node}} {{.Address}}:<%= node['riak_cs']['config']['riak_cs']['cs_port'] %>{{end}}
+
+backend riakcs-pb
+  balance leastconn{{range service "<%= node.scpr_riakcs.consul_service %>"}}
+  server {{.Node}} {{.Address}}:<%= node['riak_cs']['config']['riak_cs']['riak_pb_port'] %>{{end}}
+
+backend stanchion{{with $s := service "<%= node.scpr_riakcs.consul_service %>"}}{{with index $s 0}}
+  balance leastconn
+  server {{.Node}} {{.Address}}:<%= node['stanchion']['config']['stanchion']['stanchion_port'] %>{{end}}{{end}}
+
+listen stats <%= @admin_ip %>:1944
+  mode http
+  stats enable
+  stats uri /
