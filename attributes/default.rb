@@ -27,8 +27,8 @@ default['riak_cs']['config']['riak_cs']['cs_port'] = 8080
 #]
 
 default['riak_cs_control']['config']['riak_cs_control']['cs_proxy_host']  = node.scpr_riakcs.root_host.to_erl_string
-default['riak_cs_control']['config']['riak_cs_control']['cs_proxy_port']  = 8080
-default['riak_cs_control']['config']['riak_cs_control']['cs_port']        = 8080
+default['riak_cs_control']['config']['riak_cs_control']['cs_proxy_port']  = 80
+default['riak_cs_control']['config']['riak_cs_control']['cs_port']        = 80
 
 default['riak_cs']['config']['riak_cs']['admin_key']    = node.scpr_riakcs.admin_key.to_erl_string
 default['riak_cs']['config']['riak_cs']['admin_secret'] = node.scpr_riakcs.admin_secret.to_erl_string
@@ -67,6 +67,8 @@ default['riak']['config']['riak_kv']['multi_backend'] = [be_default.to_erl_tuple
 default['riak']['config']['riak_core']['default_bucket_props'] = [ ['allow_mult', true].to_erl_tuple ]
 
 default['riak']['config']['riak_core']['https'] = [["#{node['ipaddress']}".to_erl_string, 8498].to_erl_tuple]
+
+default['riak']['config']['riak_api']['pb_backlog'] = 256
 
 default['riak']['config']['riak_core']['ssl'] = [
   ["certfile",    "/etc/ssl/riak-cert.pem".to_erl_string].to_erl_tuple,
