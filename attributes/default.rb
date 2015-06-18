@@ -53,7 +53,7 @@ default.riak.package.version.minor        = "4"
 default.riak.package.version.incremental  = "12"
 default.riak.package.version.build        = "1"
 
-default['riak']['args']['-name'] = "riak@#{node.name}.node.consul"
+override['riak']['args']['-name'] = "riak@#{node.name}.node.consul"
 
 default['riak']['config']['riak_kv']['storage_backend'] = 'riak_cs_kv_multi_backend'
 default['riak']['data_dir']                             = node.scpr_riakcs.data_dir
