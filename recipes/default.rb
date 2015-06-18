@@ -24,21 +24,31 @@ include_recipe "riak-cs"
 # stanchion at a time
 include_recipe "riak-cs::stanchion"
 
-# -- Install SSL Cert -- #
-
-['cacert','cert','key'].each do |f|
-  cookbook_file "/etc/ssl/riak-#{f}.pem" do
-    action  :create
-    source  "#{f}.pem"
-    owner   "riak"
-    mode    0644
-  end
-end
-
 # -- register with Consul -- #
 
 consul_service_def node.scpr_riakcs.consul_service do
   action    :create
-  tags      ["riakcs","stanchion"]
+  tags      ["riakcs"]
+  port      node['riak_cs']['config']['riak_cs']['cs_port']
+
+  check(
+    interval: "5s",
+    script:   "riak ping && riak-cs ping"
+  )
+
+  notifies  :reload, "service[consul]"
+end
+
+consul_service_def node.scpr_riakcs.consul_service do
+  action    :create
+  id        "#{node.scpr_riakcs.consul_service}-stanchion"
+  tags      ["stanchion"]
+  port      node['stanchion']['config']['stanchion']['stanchion_port']
+
+  check(
+    interval: "5s",
+    script:   "riak ping && stanchion ping"
+  )
+
   notifies  :reload, "service[consul]"
 end

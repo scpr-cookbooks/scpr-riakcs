@@ -1,10 +1,10 @@
 name             'scpr-riakcs'
 maintainer       'Southern California Public Radio'
 maintainer_email 'erichardson@scpr.org'
-license          'all_rights'
+license          'apache2'
 description      'Installs/Configures scpr-riakcs'
 long_description 'Installs/Configures scpr-riakcs'
-version          '0.1.8'
+version          '0.2.0'
 
 depends 'scpr-consul'
 depends 'riak'
