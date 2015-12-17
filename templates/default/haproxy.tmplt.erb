@@ -11,6 +11,9 @@ defaults
   option redispatch
   option forwardfor
   option httplog
+  timeout client 1m
+  timeout server 10s
+  timeout connect 5s
   retries 3
 
 frontend http-in
@@ -19,6 +22,7 @@ frontend http-in
 
 frontend pb-in
   bind *:<%= node['riak_cs']['config']['riak_cs']['riak_pb_port'] %>
+  mode tcp
   default_backend riakcs-pb
 
 frontend stanchion-in
@@ -31,7 +35,8 @@ backend riakcs-http
   server {{.Node}} {{.Address}}:{{.Port}}{{end}}
 
 backend riakcs-pb
-  balance leastconn{{range service "riakcs.<%= node.scpr_riakcs.consul_service %>"}}
+  balance leastconn
+  mode tcp{{range service "riakcs.<%= node.scpr_riakcs.consul_service %>"}}
   server {{.Node}} {{.Address}}:<%= node['riak_cs']['config']['riak_cs']['riak_pb_port'] %>{{end}}
 
 backend stanchion{{with $s := service "stanchion.<%= node.scpr_riakcs.consul_service %>"}}{{with index $s 0}}
