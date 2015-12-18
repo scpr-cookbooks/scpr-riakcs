@@ -34,6 +34,9 @@ default['riak_cs']['config']['riak_cs']['anonymous_user_creation']  = node.scpr_
 default['riak_cs']['config']['riak_cs']['admin_auth_enabled']       = node.scpr_riakcs.admin_auth
 default['riak_cs']['config']['riak_cs']['riak_ip']                  = node.scpr_riakcs.ip.to_erl_string
 
+default['riak_cs']['config']['riak_cs']['admin_ip']                 = "0.0.0.0".to_erl_string
+default['riak_cs']['config']['riak_cs']['admin_port']               = 8000
+
 default['riak_cs_control']['config']['riak_cs_control']['cs_proxy_host']  = node.scpr_riakcs.root_host.to_erl_string
 default['riak_cs_control']['config']['riak_cs_control']['cs_proxy_port']  = 80
 default['riak_cs_control']['config']['riak_cs_control']['cs_port']        = 80
