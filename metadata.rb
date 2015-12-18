@@ -6,10 +6,8 @@ description      'Installs/Configures scpr-riakcs'
 long_description 'Installs/Configures scpr-riakcs'
 version          '0.2.1'
 
-depends 'scpr-consul'
-depends 'riak'
-depends 'riak-cs', "~> 2.2.10"
-
-depends 'apt'
+depends 'scpr-consul', "~> 0.1.25"
+depends 'riak', "2.4.21"
+depends 'riak-cs', "2.2.11"
 
 depends 'scpr-consul-haproxy', "~> 0.4.2"
