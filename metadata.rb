@@ -4,7 +4,7 @@ maintainer_email 'erichardson@scpr.org'
 license          'apache2'
 description      'Installs/Configures scpr-riakcs'
 long_description 'Installs/Configures scpr-riakcs'
-version          '0.2.1'
+version          '0.2.2'
 
 depends 'scpr-consul', "~> 0.1.25"
 depends 'riak', "2.4.21"

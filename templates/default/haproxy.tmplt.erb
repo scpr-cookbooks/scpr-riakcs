@@ -32,7 +32,7 @@ frontend stanchion-in
 
 backend riakcs-http
   balance leastconn{{range service "riakcs.<%= node.scpr_riakcs.consul_service %>"}}
-  server {{.Node}} {{.Address}}:{{.Port}}{{end}}
+  server {{.Node}} {{.Address}}:{{or .Port 8080}}{{end}}
 
 backend riakcs-pb
   balance leastconn
