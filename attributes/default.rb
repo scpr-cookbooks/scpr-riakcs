@@ -76,6 +76,11 @@ default['riak']['config']['riak_kv']['multi_backend_default']     = "be_default"
 default['riak']['config']['riak_kv']['multi_backend']             = [be_default.to_erl_tuple, be_blocks.to_erl_tuple]
 default['riak']['config']['riak_core']['default_bucket_props']    = [ ['allow_mult', true].to_erl_tuple ]
 
+default['riak']['config']['bitcask']['frag_merge_trigger'] = 40
+default['riak']['config']['bitcask']['dead_bytes_merge_trigger'] = 134217728
+default['riak']['config']['bitcask']['frag_threshold'] = 20
+default['riak']['config']['bitcask']['dead_bytes_threshold'] = 67108864
+
 default['riak']['config']['riak_core']['http']        = [["0.0.0.0".to_erl_string, 8098].to_erl_tuple]
 default['riak']['config']['riak_core']['cluster_mgr'] = ["0.0.0.0".to_erl_string, 9085].to_erl_tuple
 default['riak']['config']['riak_api']['pb']           = [["0.0.0.0".to_erl_string, 8087].to_erl_tuple]
