@@ -1,0 +1,35 @@
+{
+  "name": "scpr-riakcs",
+  "description": "Installs/Configures scpr-riakcs",
+  "long_description": "Installs/Configures scpr-riakcs",
+  "maintainer": "Southern California Public Radio",
+  "maintainer_email": "erichardson@scpr.org",
+  "license": "apache2",
+  "platforms": {
+  },
+  "dependencies": {
+    "scpr-consul": "~> 0.2",
+    "riak": "= 2.4.21",
+    "riak-cs": "= 2.2.11",
+    "scpr-consul-haproxy": "~> 0.5"
+  },
+  "recommendations": {
+  },
+  "suggestions": {
+  },
+  "conflicting": {
+  },
+  "providing": {
+  },
+  "replacing": {
+  },
+  "attributes": {
+  },
+  "groupings": {
+  },
+  "recipes": {
+  },
+  "version": "0.2.6",
+  "source_url": "",
+  "issues_url": ""
+}

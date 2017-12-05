@@ -52,3 +52,7 @@ consul_service_def node.scpr_riakcs.consul_service do
 
   notifies  :reload, "service[consul]"
 end
+
+execute 'prune_old_access_logs' do
+  command 'find /var/log/riak-cs/access.log.* -mtime +5 -exec rm {} \;'
+end
